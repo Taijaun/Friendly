@@ -12,8 +12,12 @@ struct UserDetail: View {
     var body: some View {
         VStack {
             Text(user.name)
-            Text("\(user.registered.convertToDate())")
+            Text(formatRegisteredDate())
         }
+    }
+    
+    func formatRegisteredDate() -> String {
+        return user.registered.convertToDate().formatted(date: .abbreviated, time: .omitted)
     }
     
 
