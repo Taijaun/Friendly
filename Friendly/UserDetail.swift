@@ -13,17 +13,34 @@ struct UserDetail: View {
         ScrollView {
             VStack {
                 Spacer()
-                Text(user.name)
-                Text(formatRegisteredDate())
-                Text(user.about)
-                Spacer()
                 
-                Text("Friends")
-                    .font(.title).bold()
-                ForEach(user.friends, id: \.id) { friend in
-                    Text(friend.name)
+                Text(user.name)
+                    .font(.largeTitle).bold()
+                
+                
+                Text(user.about)
+                    .frame(maxWidth: 300)
+                    .padding()
+                    .background(Color.gray.opacity(0.2))
+                    .cornerRadius(10)
+                
+                VStack {
+                    Text("Join Date:")
+                    Text(formatRegisteredDate())
+                        .font(.subheadline).bold()
                 }
                 
+                Spacer()
+                
+                VStack {
+                    Text("Friends")
+                        .font(.subheadline).bold()
+                    
+                    ForEach(user.friends, id: \.id) { friend in
+                        Text(friend.name)
+                            .font(.footnote)
+                    }
+                }
             }
             .padding()
         }
