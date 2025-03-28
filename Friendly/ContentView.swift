@@ -26,11 +26,12 @@ struct ContentView: View {
                     }
                 }
             }
-            .onAppear(perform: {
-                print("Hello")
-            })
             .task {
-                await getUsers(from: "https://www.hackingwithswift.com/samples/friendface.json")
+                if users.isEmpty {
+                    await getUsers(from: "https://www.hackingwithswift.com/samples/friendface.json")
+                    print("loading users")
+                }
+                
             }
         }
     }
