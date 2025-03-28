@@ -10,9 +10,22 @@ import SwiftUI
 struct UserDetail: View {
     let user: User
     var body: some View {
-        VStack {
-            Text(user.name)
-            Text(formatRegisteredDate())
+        ScrollView {
+            VStack {
+                Spacer()
+                Text(user.name)
+                Text(formatRegisteredDate())
+                Text(user.about)
+                Spacer()
+                
+                Text("Friends")
+                    .font(.title).bold()
+                ForEach(user.friends, id: \.id) { friend in
+                    Text(friend.name)
+                }
+                
+            }
+            .padding()
         }
     }
     
