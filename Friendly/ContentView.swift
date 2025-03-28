@@ -11,20 +11,30 @@ struct ContentView: View {
     @State private var users = [User]()
     
     var body: some View {
-        VStack {
-            List(users, id: \.id){ user in
-                VStack(alignment: .leading) {
-                    Text(user.name)
-                    
-                    Text(user.company)
+        NavigationStack{
+            VStack {
+                List(users, id: \.id){ user in
+                    VStack() {
+                        NavigationLink{
+                            UserDetail(user: user)
+                        } label: {
+                            VStack{
+                                Text(user.name)
+                                
+                                Text(user.company)
+                            }
+                        }
+                        
+                        
+                    }
                 }
             }
-        }
-        .onAppear(perform: {
-            print("Hello")
-        })
-        .task {
-            await getUsers(from: "https://www.hackingwithswift.com/samples/friendface.json")
+            .onAppear(perform: {
+                print("Hello")
+            })
+            .task {
+                await getUsers(from: "https://www.hackingwithswift.com/samples/friendface.json")
+            }
         }
     }
     
