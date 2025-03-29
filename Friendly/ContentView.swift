@@ -10,7 +10,7 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) var modelContext
-    @State private var users = [User]()
+    @Query private var users: [User]
     
     var body: some View {
         NavigationStack{
@@ -49,13 +49,19 @@ struct ContentView: View {
             let (data, _) = try await URLSession.shared.data(from: url)
             
             if let decodedResponse = try? JSONDecoder().decode([User].self, from: data) {
-                users = decodedResponse
+                saveToSwiftData(decodedResponse)
             }
             
         } catch {
             print("Decoding error:", error)
         }
         
+    }
+    
+    func saveToSwiftData(_ users: [User]) {
+        for user in users {
+            modelContext.insert(user)
+        }
     }
 }
 
